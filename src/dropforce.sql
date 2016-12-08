@@ -34,3 +34,9 @@ drop table obervation force;
 drop type prescription_type force;
 drop table prescription force;
 drop table traitement_prescription force;
+
+drop type medecin_type force;
+drop table medecin force;
+
+drop type consultation_type force;
+drop table consultation force;
