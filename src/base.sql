@@ -34,15 +34,26 @@ create table effet_indesirable_substance_active (
   substance_active ref substance_active_type
 );
 
+create type medicament_type as object (
+  nom varchar(128),
+  substance_active ref substance_active_type
+);
+/
+create table medicament of medicament_type;
+
+create type interaction_type as object (
+  medicament1 ref medicament_type,
+  medicament2 ref medicament_type
+);
+/
+create table interaction of interaction_type;
+
 create type maladie_type as object (
+  nom varchar(128),
   description varchar(1024)
 );
 /
 create table maladie of maladie_type;
-/*
-create type interaction_type as object (
-  medicament
-);*/
 
 
 create type laboratoire_type as object (
@@ -62,20 +73,29 @@ create type developpement_type as object (
 create table developpement of developpement_type;
 
 create type medecin_type as object (
-    nom varchar(128),
-    prenom varchar(128),
-    laboration ref laboratoire_type,
-    developpement ref developpement_type
+  nom varchar(128),
+  prenom varchar(128),
+  laboration ref laboratoire_type,
+  developpement ref developpement_type
 );
 /
-
 create table medecin of medecin_type;
 
 create type consultation_type as object (
-    date_consultation date,
-    nom_medecin ref medecin_type
+  dateT date,
+  medecin ref medecin_type
 );
 /
-
 create table consultation of consultation_type;
 
+create type traitement_type as object (
+  duree number,
+  maladie ref maladie_type
+);
+/
+create table traitement of traitement_type;
+
+create table substance_active_traitement (
+  substance_active ref substance_active_type,
+  traitement ref traitement_type
+);

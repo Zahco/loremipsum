@@ -10,6 +10,11 @@ drop table substance_active force;
 drop type effet_indesirable_type force;
 drop type substance_active_type force;
 
+drop type medicament_type force;
+drop table medicament force;
+drop type interaction_type force;
+drop table interaction force;
+
 drop type maladie_type force;
 drop table maladie force;
 
@@ -18,3 +23,7 @@ drop table laboratoire force;
 
 drop type developpement_type force;
 drop table developpement force;
+
+drop type traitement_type force;
+drop table traitement force;
+drop table substance_active_traitement force;
