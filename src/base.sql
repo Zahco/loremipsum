@@ -44,6 +44,7 @@ create type interaction_type as object (
   medicament
 );*/
 
+
 create type laboratoire_type as object (
   nom varchar(128),
   adresse varchar(128)
@@ -59,3 +60,22 @@ create type developpement_type as object (
 );
 /
 create table developpement of developpement_type;
+
+create type medecin_type as object (
+    nom varchar(128),
+    prenom varchar(128),
+    laboration ref laboratoire_type,
+    developpement ref developpement_type
+);
+/
+
+create table medecin of medecin_type;
+
+create type consultation_type as object (
+    date_consultation date,
+    nom_medecin ref medecin_type
+);
+/
+
+create table consultation of consultation_type;
+
