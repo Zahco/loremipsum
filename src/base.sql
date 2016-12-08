@@ -48,6 +48,7 @@ create type laboratoire_type as object (
   nom varchar(128),
   adresse varchar(128)
 );
+/
 create table laboratoire of laboratoire_type;
 
 create type developpement_type as object (
@@ -56,5 +57,5 @@ create type developpement_type as object (
   medicament ref medicament_type,
   laboratoire ref laboratoire_type
 );
-
+/
 create table developpement of developpement_type;

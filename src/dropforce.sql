@@ -12,3 +12,9 @@ drop type substance_active_type force;
 
 drop type maladie_type force;
 drop table maladie force;
+
+drop type laboratoire_type force;
+drop table laboratoire force;
+
+drop type developpement_type force;
+drop table developpement force;
