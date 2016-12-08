@@ -99,3 +99,23 @@ create table substance_active_traitement (
   substance_active ref substance_active_type,
   traitement ref traitement_type
 );
+
+create table obervation(
+  consultation ref consultation_type,
+  maladie ref maladie_type
+);
+
+create type prescription_type as object(
+  debut date,
+  consultation ref consultation_type,
+  medicament ref medicament_type,
+  patient ref patient_type
+);
+/
+create table prescription of prescription_type;
+
+create table traitement_prescription(
+  traitement ref traitement_type,
+  prescription ref prescription_type
+);
+
