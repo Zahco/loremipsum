@@ -99,3 +99,8 @@ create table substance_active_traitement (
   substance_active ref substance_active_type,
   traitement ref traitement_type
 );
+
+create table maladie_chronique (
+  patient ref patient_type,
+  maladie ref maladie_type
+);

@@ -27,3 +27,5 @@ drop table developpement force;
 drop type traitement_type force;
 drop table traitement force;
 drop table substance_active_traitement force;
+
+drop table maladie_chronique force;
