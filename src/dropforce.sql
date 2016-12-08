@@ -29,3 +29,8 @@ drop table traitement force;
 drop table substance_active_traitement force;
 
 drop table maladie_chronique force;
+
+drop table obervation force;
+drop type prescription_type force;
+drop table prescription force;
+drop table traitement_prescription force;
