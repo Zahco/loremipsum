@@ -43,3 +43,18 @@ create table maladie of maladie_type;
 create type interaction_type as object (
   medicament
 );*/
+
+create type laboratoire_type as object (
+  nom varchar(128),
+  adresse varchar(128)
+);
+create table laboratoire of laboratoire_type;
+
+create type developpement_type as object (
+  date_debut date,
+  date_fin date,
+  medicament ref medicament_type,
+  laboratoire ref laboratoire_type
+);
+
+create table developpement of developpement_type;
