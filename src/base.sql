@@ -29,7 +29,7 @@ create type substance_active_type as object (
 /
 create table substance_active of substance_active_type;
 
-create table effet_indesirable_substance_active (
+create table effet_i_substance_a (
   effet_indesirable ref effet_indesirable_type,
   substance_active ref substance_active_type
 );
@@ -123,4 +123,3 @@ create table traitement_prescription(
   traitement ref traitement_type,
   prescription ref prescription_type
 );
-
