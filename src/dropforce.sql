@@ -9,3 +9,6 @@ drop table effet_indesirable force;
 drop table substance_active force;
 drop type effet_indesirable_type force;
 drop type substance_active_type force;
+
+drop type maladie_type force;
+drop table maladie force;
