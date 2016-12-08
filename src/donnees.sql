@@ -11,5 +11,5 @@ insert into carateristique values ('Non humain');
 
 insert into carateristique_patient values (
   (select ref(c) from carateristique c where description = 'Femme'),
-  (select ref(p) from patient p where prenom = 'Ipsum'),
+  (select ref(p) from patient p where prenom = 'Ipsum')
 );
