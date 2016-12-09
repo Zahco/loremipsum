@@ -54,12 +54,34 @@ insert into maladie values ('Paludisme', 'https://fr.wikipedia.org/wiki/Paludism
 insert into maladie values ('Grippe', 'https://fr.wikipedia.org/wiki/Grippe');
 insert into maladie values ('Peste', 'https://fr.wikipedia.org/wiki/Peste');
 insert into maladie values ('Septicémie', 'https://fr.wikipedia.org/wiki/Sepsis');
+insert into maladie values ('Diabète', 'https://fr.wikipedia.org/wiki/Diabète');
+insert into maladie values ('Epilepsie', 'https://fr.wikipedia.org/wiki/Epilepsie');
+insert into maladie values ('Alzheimer', 'https://fr.wikipedia.org/wiki/Alzheimer');
+
+insert into maladie_chronique values (
+  (select ref(p) from patient p where nom = 'Lorem' and prenom = 'Dolores'),
+  (select ref(m) from maladie m where nom = 'Diabète')
+);
+insert into maladie_chronique values (
+  (select ref(p) from patient p where nom = 'Lorem' and prenom = 'Dolores'),
+  (select ref(m) from maladie m where nom = 'Epilepsie')
+);
+insert into maladie_chronique values (
+  (select ref(p) from patient p where nom = 'Lorem' and prenom = 'Dolores'),
+  (select ref(m) from maladie m where nom = 'Alzheimer')
+);
+insert into maladie_chronique values (
+  (select ref(p) from patient p where nom = 'Lorem' and prenom = 'Ipsum'),
+  (select ref(m) from maladie m where nom = 'Alzheimer')
+);
 
 insert into substance_active values ('abacavir', 'https://www.vidal.fr/Substance/abacavir-18415.htm');
 insert into substance_active values ('abatacept', 'https://www.vidal.fr/Substance/abatacept-22898.htm');
 insert into substance_active values ('abciximab', 'https://www.vidal.fr/Substance/abciximab-11965.htm');
 insert into substance_active values ('abiratérone', 'https://www.vidal.fr/Substance/abiraterone-23420.htm');
 insert into substance_active values ('paracétamol', 'https://www.vidal.fr/Substance/paracetamol-2649.htm');
+insert into substance_active values ('acide acetylsalicylique', 'https://www.vidal.fr/substances/20/acide_acetylsalicylique/');
+
 
 insert into medicament values ('doliprane',
   (select ref(s) from substance_active s where nom = 'paracétamol')
@@ -73,6 +95,23 @@ insert into medicament values ('efferalgan',
 insert into medicament values ('zytiga',
   (select ref(s) from substance_active s where nom = 'abiratérone')
 );
+insert into medicament values ('aspirine',
+  (select ref(s) from substance_active s where nom = 'acide acetylsalicylique')
+);
+
+insert into interaction(
+  (select ref(m1) from medicament m1 where nom = 'doliprane'),
+  (select ref(m2) from medicament m2 where nom = 'actifed')
+);
+insert into interaction(
+  (select ref(m1) from medicament m1 where nom = 'doliprane'),
+  (select ref(m2) from medicament m2 where nom = 'efferalgan')
+);
+insert into interaction(
+  (select ref(m1) from medicament m1 where nom = 'efferalgan'),
+  (select ref(m2) from medicament m2 where nom = 'actifed')
+);
+
 
 insert into laboratoire values ('CHU', 'Rouen');
 insert into laboratoire values ('IGIS', 'Technopole du madrillet');
