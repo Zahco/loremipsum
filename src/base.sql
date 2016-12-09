@@ -24,6 +24,7 @@ create type effet_indesirable_type as object (
 create table effet_indesirable of effet_indesirable_type;
 
 create type substance_active_type as object (
+  nom varchar(128),
   description varchar(1024)
 );
 /
@@ -75,7 +76,7 @@ create table developpement of developpement_type;
 create type medecin_type as object (
   nom varchar(128),
   prenom varchar(128),
-  laboration ref laboratoire_type,
+  laboratoire ref laboratoire_type,
   developpement ref developpement_type
 );
 /
