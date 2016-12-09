@@ -37,6 +37,7 @@ drop table traitement_prescription force;
 
 drop type medecin_type force;
 drop table medecin force;
+drop table medecin_developpement force;
 
 drop type consultation_type force;
 drop table consultation force;
