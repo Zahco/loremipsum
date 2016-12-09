@@ -76,8 +76,7 @@ create table developpement of developpement_type;
 create type medecin_type as object (
   nom varchar(128),
   prenom varchar(128),
-  laboratoire ref laboratoire_type,
-  developpement ref developpement_type
+  laboratoire ref laboratoire_type
 );
 /
 create table medecin of medecin_type;

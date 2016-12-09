@@ -92,22 +92,17 @@ insert into developpement values ('12/03/1990', '12/03/1995',
 );
 
 insert into medecin values ('Roy', 'Amedee',
-  (select ref(l) from laboratoire l where nom = 'Leo Farma'),
-  NULL
+  (select ref(l) from laboratoire l where nom = 'Leo Farma')
 );
 insert into medecin values ('Marignier', 'Gabin',
-  (select ref(l) from laboratoire l where nom = 'Leo Farma'),
-  NULL
+  (select ref(l) from laboratoire l where nom = 'Leo Farma')
 );
 insert into medecin values ('Souris', 'Esther',
-  (select ref(l) from laboratoire l where nom = 'CHU'),
-  NULL
+  (select ref(l) from laboratoire l where nom = 'CHU')
 );
 insert into medecin values ('Sourissette', 'Frederique',
-  (select ref(l) from laboratoire l where nom = 'IGIS'),
-  NULL
+  (select ref(l) from laboratoire l where nom = 'IGIS')
 );
 insert into medecin values ('Pellereau', 'Joris',
-  NULL,
   NULL
 );
