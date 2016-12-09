@@ -30,7 +30,10 @@ drop table substance_active_traitement force;
 
 drop table maladie_chronique force;
 
-drop table obervation force;
+drop type symptome_type force;
+drop table symptome force;
+drop table symptome_consultation force;
+
 drop type prescription_type force;
 drop table prescription force;
 drop table traitement_prescription force;

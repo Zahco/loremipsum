@@ -52,7 +52,7 @@ insert into maladie values ('Syphilis', 'https://fr.wikipedia.org/wiki/Syphilis'
 insert into maladie values ('zygomycose', 'https://fr.wikipedia.org/wiki/Mucormycose');
 insert into maladie values ('Paludisme', 'https://fr.wikipedia.org/wiki/Paludisme');
 insert into maladie values ('Grippe', 'https://fr.wikipedia.org/wiki/Grippe');
-insert into maladie values ('peste', 'https://fr.wikipedia.org/wiki/Peste');
+insert into maladie values ('Peste', 'https://fr.wikipedia.org/wiki/Peste');
 insert into maladie values ('Septicémie', 'https://fr.wikipedia.org/wiki/Sepsis');
 
 insert into substance_active values ('abacavir', 'https://www.vidal.fr/Substance/abacavir-18415.htm');
@@ -105,4 +105,59 @@ insert into medecin values ('Sourissette', 'Frederique',
 );
 insert into medecin values ('Pellereau', 'Joris',
   NULL
+);
+
+insert into effet_indesirable values ('vomissement');
+insert into effet_indesirable values ('démangeaison');
+insert into effet_indesirable values ('maux de tête');
+insert into effet_indesirable values ('coma');
+insert into effet_indesirable values ('mort');
+insert into effet_indesirable values ('fatigue');
+
+insert into effet_i_substance_a values (
+  (select ref(e) from effet_indesirable e where description = 'paracétamol'),
+  (select ref(s) from substance_active s where description = 'mort')
+);
+insert into effet_i_substance_a values (
+  (select ref(e) from effet_indesirable e where description = 'paracétamol'),
+  (select ref(s) from substance_active s where description = 'coma')
+);
+insert into effet_i_substance_a values (
+  (select ref(e) from effet_indesirable e where description = 'paracétamol'),
+  (select ref(s) from substance_active s where description = 'fatigue')
+);
+insert into effet_i_substance_a values (
+  (select ref(e) from effet_indesirable e where description = 'abiratérone'),
+  (select ref(s) from substance_active s where description = 'vomissement')
+);
+
+
+insert into traitement values ( 10, 'conseil: 3 fois par jour'
+  (select ref(m) from maladie m where nom = 'Pou du pubis')
+);
+insert into traitement values ( 10, 'conseil: 3 fois par jour'
+  (select ref(m) from maladie m where nom = 'Syphilis')
+);
+insert into traitement values ( 10, 'conseil: 3 fois par jour'
+  (select ref(m) from maladie m where nom = 'Grippe')
+);
+insert into traitement values ( 10, 'conseil: 3 fois par jour'
+  (select ref(m) from maladie m where nom = 'Peste')
+);
+
+insert into substance_active_traitement values (
+  (select ref(s) from substance_active s where nom = 'paracétamol'),
+  (select ref(t) from traitement t where deref(maladie).nom = 'Peste')
+);
+insert into substance_active_traitement values (
+  (select ref(s) from substance_active s where nom = 'abiratérone'),
+  (select ref(t) from traitement t where deref(maladie).nom = 'Pou du pubis')
+);
+insert into substance_active_traitement values (
+  (select ref(s) from substance_active s where nom = 'abciximab'),
+  (select ref(t) from traitement t where deref(maladie).nom = 'Syphilis')
+);
+insert into substance_active_traitement values (
+  (select ref(s) from substance_active s where nom = 'paracétamol'),
+  (select ref(t) from traitement t where deref(maladie).nom = 'Grippe')
 );

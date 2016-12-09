@@ -95,6 +95,7 @@ create table consultation of consultation_type;
 
 create type traitement_type as object (
   duree number,
+  conseil varchar(2048),
   maladie ref maladie_type
 );
 /
@@ -110,9 +111,16 @@ create table maladie_chronique (
   maladie ref maladie_type
 );
 
-create table obervation(
-  consultation ref consultation_type,
+create type symptome_type (
+  description varchar,
   maladie ref maladie_type
+);
+/
+create table symptome of symptome_type;
+
+create table symptome_consultation (
+  consultation ref consultation_type,
+  symptome ref symptome_type
 );
 
 create type prescription_type as object(
