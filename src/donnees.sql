@@ -99,15 +99,15 @@ insert into medicament values ('aspirine',
   (select ref(s) from substance_active s where nom = 'acide acetylsalicylique')
 );
 
-insert into interaction(
+insert into interaction values (
   (select ref(m1) from medicament m1 where nom = 'doliprane'),
   (select ref(m2) from medicament m2 where nom = 'actifed')
 );
-insert into interaction(
+insert into interaction values (
   (select ref(m1) from medicament m1 where nom = 'doliprane'),
   (select ref(m2) from medicament m2 where nom = 'efferalgan')
 );
-insert into interaction(
+insert into interaction values (
   (select ref(m1) from medicament m1 where nom = 'efferalgan'),
   (select ref(m2) from medicament m2 where nom = 'actifed')
 );
@@ -171,16 +171,16 @@ insert into effet_i_substance_a values (
 );
 
 
-insert into traitement values ( 10, 'conseil: 3 fois par jour'
+insert into traitement values ( 10, 'conseil: 3 fois par jour',
   (select ref(m) from maladie m where nom = 'Pou du pubis')
 );
-insert into traitement values ( 10, 'conseil: 3 fois par jour'
+insert into traitement values ( 10, 'conseil: 3 fois par jour',
   (select ref(m) from maladie m where nom = 'Syphilis')
 );
-insert into traitement values ( 10, 'conseil: 3 fois par jour'
+insert into traitement values ( 10, 'conseil: 3 fois par jour',
   (select ref(m) from maladie m where nom = 'Grippe')
 );
-insert into traitement values ( 10, 'conseil: 3 fois par jour'
+insert into traitement values ( 10, 'conseil: 3 fois par jour',
   (select ref(m) from maladie m where nom = 'Peste')
 );
 
