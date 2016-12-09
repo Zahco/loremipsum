@@ -111,7 +111,7 @@ create table maladie_chronique (
   maladie ref maladie_type
 );
 
-create type symptome_type (
+create type symptome_type as object (
   description varchar,
   maladie ref maladie_type
 );
