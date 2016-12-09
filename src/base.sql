@@ -112,7 +112,7 @@ create table maladie_chronique (
 );
 
 create type symptome_type as object (
-  description varchar,
+  description varchar(1024),
   maladie ref maladie_type
 );
 /
