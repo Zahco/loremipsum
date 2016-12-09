@@ -62,16 +62,16 @@ insert into substance_active values ('abiratérone', 'https://www.vidal.fr/Subst
 insert into substance_active values ('paracétamol', 'https://www.vidal.fr/Substance/paracetamol-2649.htm');
 
 insert into medicament values ('doliprane',
-  (select ref(s) from substance_active where nom = 'paracétamol')
+  (select ref(s) from substance_active s where nom = 'paracétamol')
 );
 insert into medicament values ('actifed',
-  (select ref(s) from substance_active where nom = 'paracétamol')
+  (select ref(s) from substance_active s where nom = 'paracétamol')
 );
 insert into medicament values ('efferalgan',
-  (select ref(s) from substance_active where nom = 'paracétamol')
+  (select ref(s) from substance_active s where nom = 'paracétamol')
 );
 insert into medicament values ('zytiga',
-  (select ref(s) from substance_active where nom = 'abiratérone')
+  (select ref(s) from substance_active s where nom = 'abiratérone')
 );
 
 insert into laboratoire values ('CHU', 'Rouen');
