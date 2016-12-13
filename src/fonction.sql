@@ -139,9 +139,6 @@ begin
   close ret;
 end;
 /
-
-<<<<<<< Updated upstream
-
 -- 4. Une méthode donnant la liste des medicament provocant des interections.
 
 create or replace procedure liste_interaction
@@ -175,5 +172,38 @@ begin
 end;
 /
 
-=======
->>>>>>> Stashed changes
+-- 5. une fonction permettant de proposer une liste de médicaments à partir de la
+--    maladie diagnostiquée, même si un lien direct maladie-médicament n’existe
+--    pas.
+
+create or replace procedure medicament_recommende
+  (maladie_nom in maladie.nom%type,
+   ret out sys_refcursor)
+is
+begin
+  open ret for 
+    select med.nom from medicament med
+    where med.substance_active = (
+      select substance_active from substance_active_traitement sat 
+      where deref(deref(sat.traitement).maladie).nom = maladie_nom
+    );
+end;
+/
+
+
+declare 
+  ret sys_refcursor;
+  line medicament.nom%type;
+begin
+  medicament_recommende('Peste', ret);
+  loop
+    fetch ret into line;
+    exit when ret%notfound;
+    dbms_output.put_line(line);
+  end loop;
+  
+  close ret;
+end;
+/
+
+
