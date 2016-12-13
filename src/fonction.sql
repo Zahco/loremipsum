@@ -141,3 +141,36 @@ end;
 /
 
 
+-- 4. Une méthode donnant la liste des medicament provocant des interections.
+
+create or replace procedure liste_interaction
+  (nom_med in medicament.nom%type,
+   ret out sys_refcursor)
+is
+begin
+  open ret for 
+    select deref(medicament2) from interaction 
+    where deref(medicament1).nom = nom_med
+    union all
+    select deref(medicament1) from interaction 
+    where deref(medicament2).nom = nom_med; 
+ 
+end;
+/
+
+
+declare 
+  ret sys_refcursor;
+  line medicament%rowtype;
+begin
+  liste_interaction('efferalgan', ret);
+  loop
+    fetch ret into line;
+    exit when ret%notfound;
+    dbms_output.put_line(line.nom);
+  end loop;
+  
+  close ret;
+end;
+/
+
