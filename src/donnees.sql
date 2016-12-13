@@ -38,25 +38,30 @@ insert into carateristique_patient values (
   (select ref(p) from patient p where prenom = 'Michel')
 );
 
-insert into maladie values ('ehrlichiose', 'https://fr.wikipedia.org/wiki/Ehrlichiose');
-insert into maladie values ('mal de los Rastrojos', 'https://fr.wikipedia.org/wiki/Fi%C3%A8vre_h%C3%A9morragique_d%27Argentine');
-insert into maladie values ('Balantidiase', 'https://fr.wikipedia.org/wiki/Balantidiase');
-insert into maladie values ('Maladie des griffes du chat', 'https://fr.wikipedia.org/wiki/Maladie_des_griffes_du_chat');
-insert into maladie values ('Entérovirus', 'https://fr.wikipedia.org/wiki/Ent%C3%A9rovirus');
-insert into maladie values ('Streptocoque B', 'https://fr.wikipedia.org/wiki/Streptocoque_B');
-insert into maladie values ('Hépatite E', 'https://fr.wikipedia.org/wiki/H%C3%A9patite_E');
-insert into maladie values ('Hymenolepis nana', 'https://fr.wikipedia.org/wiki/Hymenolepis_nana');
-insert into maladie values ('Pou du pubis', 'https://fr.wikipedia.org/wiki/Pou_du_pubis');
-insert into maladie values ('Fièvre Q', 'https://fr.wikipedia.org/wiki/Fi%C3%A8vre_Q');
-insert into maladie values ('Syphilis', 'https://fr.wikipedia.org/wiki/Syphilis');
-insert into maladie values ('zygomycose', 'https://fr.wikipedia.org/wiki/Mucormycose');
-insert into maladie values ('Paludisme', 'https://fr.wikipedia.org/wiki/Paludisme');
-insert into maladie values ('Grippe', 'https://fr.wikipedia.org/wiki/Grippe');
-insert into maladie values ('Peste', 'https://fr.wikipedia.org/wiki/Peste');
-insert into maladie values ('Septicémie', 'https://fr.wikipedia.org/wiki/Sepsis');
-insert into maladie values ('Diabète', 'https://fr.wikipedia.org/wiki/Diabète');
-insert into maladie values ('Epilepsie', 'https://fr.wikipedia.org/wiki/Epilepsie');
-insert into maladie values ('Alzheimer', 'https://fr.wikipedia.org/wiki/Alzheimer');
+insert into maladie values ('ehrlichiose', 'https://fr.wikipedia.org/wiki/Ehrlichiose', null);
+insert into maladie values ('mal de los Rastrojos', 'https://fr.wikipedia.org/wiki/Fi%C3%A8vre_h%C3%A9morragique_d%27Argentine', null);
+insert into maladie values ('Balantidiase', 'https://fr.wikipedia.org/wiki/Balantidiase', null);
+insert into maladie values ('Maladie des griffes du chat', 'https://fr.wikipedia.org/wiki/Maladie_des_griffes_du_chat', null);
+insert into maladie values ('Entérovirus', 'https://fr.wikipedia.org/wiki/Ent%C3%A9rovirus', null);
+insert into maladie values ('Streptocoque B', 'https://fr.wikipedia.org/wiki/Streptocoque_B', null);
+insert into maladie values ('Hépatite A', 'https://fr.wikipedia.org/wiki/H%C3%A9patite_A', (select ref(m) from maladie m where nom = 'Hépatites Virales Humaine'));
+insert into maladie values ('Hépatite B', 'https://fr.wikipedia.org/wiki/H%C3%A9patite_B', (select ref(m) from maladie m where nom = 'Hépatites Virales Humaine'));
+insert into maladie values ('Hépatite C', 'https://fr.wikipedia.org/wiki/H%C3%A9patite_C', (select ref(m) from maladie m where nom = 'Hépatites Virales Humaine'));
+insert into maladie values ('Hépatite D', 'https://fr.wikipedia.org/wiki/H%C3%A9patite_D', (select ref(m) from maladie m where nom = 'Hépatites Virales Humaine'));
+insert into maladie values ('Hépatite E', 'https://fr.wikipedia.org/wiki/H%C3%A9patite_E', (select ref(m) from maladie m where nom = 'Hépatites Virales Humaine'));
+insert into maladie values ('Hépatites Virales Humaine', 'http://www.hetop.eu', null);
+insert into maladie values ('Hymenolepis nana', 'https://fr.wikipedia.org/wiki/Hymenolepis_nana', null);
+insert into maladie values ('Pou du pubis', 'https://fr.wikipedia.org/wiki/Pou_du_pubis', null);
+insert into maladie values ('Fièvre Q', 'https://fr.wikipedia.org/wiki/Fi%C3%A8vre_Q', null);
+insert into maladie values ('Syphilis', 'https://fr.wikipedia.org/wiki/Syphilis', null);
+insert into maladie values ('zygomycose', 'https://fr.wikipedia.org/wiki/Mucormycose', null);
+insert into maladie values ('Paludisme', 'https://fr.wikipedia.org/wiki/Paludisme', null);
+insert into maladie values ('Grippe', 'https://fr.wikipedia.org/wiki/Grippe', null);
+insert into maladie values ('Peste', 'https://fr.wikipedia.org/wiki/Peste', null);
+insert into maladie values ('Septicémie', 'https://fr.wikipedia.org/wiki/Sepsis', null);
+insert into maladie values ('Diabète', 'https://fr.wikipedia.org/wiki/Diabète', null);
+insert into maladie values ('Epilepsie', 'https://fr.wikipedia.org/wiki/Epilepsie', null);
+insert into maladie values ('Alzheimer', 'https://fr.wikipedia.org/wiki/Alzheimer', null);
 
 insert into maladie_chronique values (
   (select ref(p) from patient p where nom = 'Lorem' and prenom = 'Dolores'),
@@ -75,12 +80,14 @@ insert into maladie_chronique values (
   (select ref(m) from maladie m where nom = 'Alzheimer')
 );
 
-insert into substance_active values ('abacavir', 'https://www.vidal.fr/Substance/abacavir-18415.htm');
-insert into substance_active values ('abatacept', 'https://www.vidal.fr/Substance/abatacept-22898.htm');
-insert into substance_active values ('abciximab', 'https://www.vidal.fr/Substance/abciximab-11965.htm');
-insert into substance_active values ('abiratérone', 'https://www.vidal.fr/Substance/abiraterone-23420.htm');
-insert into substance_active values ('paracétamol', 'https://www.vidal.fr/Substance/paracetamol-2649.htm');
-insert into substance_active values ('acide acetylsalicylique', 'https://www.vidal.fr/substances/20/acide_acetylsalicylique/');
+insert into substance_active values ('abacavir', 'https://www.vidal.fr/Substance/abacavir-18415.htm', null);
+insert into substance_active values ('abatacept', 'https://www.vidal.fr/Substance/abatacept-22898.htm', null);
+insert into substance_active values ('abciximab', 'https://www.vidal.fr/Substance/abciximab-11965.htm', null);
+insert into substance_active values ('abiratérone', 'https://www.vidal.fr/Substance/abiraterone-23420.htm', null);
+insert into substance_active values ('paracétamol', 'https://www.vidal.fr/Substance/paracetamol-2649.htm', null);
+insert into substance_active values ('salicylates', 'http://www.hetop.eu', null);
+insert into substance_active values ('acide acetylsalicylique', 'https://www.vidal.fr/substances/20/acide_acetylsalicylique/', (select ref(s) from substance_active s where nom = 'salicylates'));
+insert into substance_active values ('Acides amino-salicyliques', 'http://www.hetop.eu', (select ref(s) from substance_active s where nom = 'salicylates'));
 
 
 insert into medicament values ('doliprane',
@@ -146,41 +153,44 @@ insert into medecin values ('Pellereau', 'Joris',
   NULL
 );
 
-insert into effet_indesirable values ('vomissement');
-insert into effet_indesirable values ('démangeaison');
-insert into effet_indesirable values ('maux de tête');
-insert into effet_indesirable values ('coma');
-insert into effet_indesirable values ('mort');
-insert into effet_indesirable values ('fatigue');
+insert into effet_indesirable values ('Effet secondaire d une médication', null);
+insert into effet_indesirable values ('vomissement',  (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
+insert into effet_indesirable values ('démangeaison', (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
+insert into effet_indesirable values ('eruption', (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
+insert into effet_indesirable values ('maux de tête', (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
+insert into effet_indesirable values ('coma', (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
+insert into effet_indesirable values ('mort non digne', (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
+insert into effet_indesirable values ('fatigue', (select ref(e) from effet_indesirable e where description = 'Effet secondaire d une médication'));
 
 insert into effet_i_substance_a values (
-  (select ref(e) from effet_indesirable e where description = 'paracétamol'),
-  (select ref(s) from substance_active s where description = 'mort')
+  (select ref(s) from effet_indesirable s  where description = 'mort non digne'),
+  (select ref(e) from substance_active e where description = 'paracétamol')
 );
 insert into effet_i_substance_a values (
-  (select ref(e) from effet_indesirable e where description = 'paracétamol'),
-  (select ref(s) from substance_active s where description = 'coma')
+  (select ref(s) from effet_indesirable s  where description = 'coma'),
+  (select ref(e) from substance_active e where description = 'paracétamol')
 );
 insert into effet_i_substance_a values (
-  (select ref(e) from effet_indesirable e where description = 'paracétamol'),
-  (select ref(s) from substance_active s where description = 'fatigue')
+  (select ref(s) from effet_indesirable s  where description = 'maux de tête'),
+  (select ref(e) from substance_active e where description = 'paracétamol')
 );
 insert into effet_i_substance_a values (
-  (select ref(e) from effet_indesirable e where description = 'abiratérone'),
-  (select ref(s) from substance_active s where description = 'vomissement')
+  (select ref(s) from effet_indesirable s  where description = 'maux de tête'),
+  (select ref(e) from substance_active e where description = 'abiratérone')
 );
+
 
 
 insert into traitement values ( 10, 'conseil: 3 fois par jour',
   (select ref(m) from maladie m where nom = 'Pou du pubis')
 );
-insert into traitement values ( 10, 'conseil: 3 fois par jour',
+insert into traitement values ( 10, 'conseil: 4 fois par jour',
   (select ref(m) from maladie m where nom = 'Syphilis')
 );
-insert into traitement values ( 10, 'conseil: 3 fois par jour',
+insert into traitement values ( 10, 'conseil: 30 fois par jour',
   (select ref(m) from maladie m where nom = 'Grippe')
 );
-insert into traitement values ( 10, 'conseil: 3 fois par jour',
+insert into traitement values ( 10, 'conseil: 1 fois par jour',
   (select ref(m) from maladie m where nom = 'Peste')
 );
 
