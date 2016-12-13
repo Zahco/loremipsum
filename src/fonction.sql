@@ -2,8 +2,8 @@ set serveroutput on;
 
 -- 1. une méthode donnant un traitement à un patient.
 create or replace procedure prescrire
-  (nom in patient.nom%type, 
-  prenom in patient.prenom%type, 
+  (nom_patient in patient.nom%type, 
+  prenom_patient in patient.prenom%type, 
   nom_maladie in maladie.nom%type, 
   nom_medecin in medecin.nom%type, 
   prenom_medecin in medecin.prenom%type, 
@@ -17,8 +17,8 @@ begin
                                         and med.prenom = prenom_medecin
                                         and rownum = 1),
                                  (select ref(pa) from patient pa 
-                                     where pa.nom = nom 
-                                        and pa.prenom = prenom
+                                     where pa.nom = nom_patient 
+                                        and pa.prenom = prenom_patient
                                         and rownum = 1));
   insert into prescription values (date_debut,
   (select ref(co) from consultation co where co.dateT = '10-10-10'  
@@ -27,8 +27,8 @@ begin
                                                                  and med.prenom = prenom_medecin
                                                                  and rownum = 1)
                                           and co.patient = (select ref(pa) from patient pa 
-                                                              where pa.nom = nom 
-                                                                 and pa.prenom = prenom
+                                                              where pa.nom = nom_patient 
+                                                                 and pa.prenom = prenom_patient
                                                                  and rownum = 1)
                                           and rownum = 1
   ),
@@ -59,8 +59,8 @@ begin
                                                    and med.prenom = prenom_medecin
                                                    and rownum = 1) 
                                     and patient = (select ref(pa) from patient pa 
-                                                 where pa.nom = nom 
-                                                    and pa.prenom = prenom
+                                                 where pa.nom = nom_patient 
+                                                    and pa.prenom = prenom_patient
                                                     and rownum = 1)
                                     and rownum = 1
                                )
@@ -92,7 +92,7 @@ declare
   ret sys_refcursor;
   line maladie%rowtype;
 begin
-  traitement_du_patient('Lorem', 'Ipsum', ret);
+  traitement_du_patient('Dupont', 'Pierre', ret);
   loop
     fetch ret into line;
     exit when ret%notfound;
@@ -134,3 +134,5 @@ begin
   close ret;
 end;
 /
+
+
