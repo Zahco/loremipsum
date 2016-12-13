@@ -75,7 +75,7 @@ execute prescrire('Lorem', 'Ipsum', 'Peste', 'Roy', 'Amedee', '10-10-10', 'dolip
 
 -- 2. une méthode donnant les traitements en cours d’un patient.
 create or replace procedure traitement_du_patient
-  (nom in patient.nom%type, prenom in patient.prenom%type, ret out traitement%rowtype)
+  (nom in patient.nom%type, prenom in patient.prenom%type, ret out sys_refcursor)
 is
 begin
   open ret for 
@@ -83,8 +83,8 @@ begin
   from traitement_prescription
   where current_date < deref(prescription).debut + deref(traitement).duree
   and prescription = (
-    select ref(pr) from prescription pr where patient = (
-      select ref(pa) from patient pa where pa.nom = nom and pa.prenom = prenom));
+    select ref(pr) from prescription pr where consultation = (select ref(con) from consultation con 
+         where patient = (select ref(pa) from patient pa where pa.nom = nom and pa.prenom = prenom)));
 end;
 /
 
@@ -119,7 +119,6 @@ begin
   );
 end;
 /
-
 declare 
   ret sys_refcursor;
   line effet_indesirable.description%type;
