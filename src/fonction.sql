@@ -206,4 +206,38 @@ begin
 end;
 /
 
+-- 7. afin de contrôler les prescriptions, on doit pouvoir déterminer s’il y a un
+--    ensemble de médicaments qui ne sont prescrits que par des médecins qui ont
+--    travaillé à leur développement.
 
+create or replace procedure a_medecin_verreux
+  (ret out sys_refcursor)
+is
+begin
+  open ret for 
+    select med.nom from medicament med
+    where (
+        select distinct deref(pr.consultation).medecin from prescription pr
+        where deref(pr.medicament).nom = med.nom
+      ) = any (
+        select md.medecin from medecin_developpement md
+        where deref(deref(md.developpement).medicament).nom = med.nom
+      );
+end;
+/
+
+
+declare 
+  ret sys_refcursor;
+  line medicament.nom%type;
+begin
+  a_medecin_verreux(ret);
+  loop
+    fetch ret into line;
+    exit when ret%notfound;
+    dbms_output.put_line(line);
+  end loop;
+  
+  close ret;
+end;
+/
