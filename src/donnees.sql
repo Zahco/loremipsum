@@ -164,19 +164,19 @@ insert into effet_indesirable values ('fatigue', (select ref(e) from effet_indes
 
 insert into effet_i_substance_a values (
   (select ref(s) from effet_indesirable s  where description = 'mort non digne'),
-  (select ref(e) from substance_active e where description = 'paracétamol')
+  (select ref(e) from substance_active e where nom = 'paracétamol')
 );
 insert into effet_i_substance_a values (
   (select ref(s) from effet_indesirable s  where description = 'coma'),
-  (select ref(e) from substance_active e where description = 'paracétamol')
+  (select ref(e) from substance_active e where nom = 'paracétamol')
 );
 insert into effet_i_substance_a values (
   (select ref(s) from effet_indesirable s  where description = 'maux de tête'),
-  (select ref(e) from substance_active e where description = 'paracétamol')
+  (select ref(e) from substance_active e where nom = 'paracétamol')
 );
 insert into effet_i_substance_a values (
   (select ref(s) from effet_indesirable s  where description = 'maux de tête'),
-  (select ref(e) from substance_active e where description = 'abiratérone')
+  (select ref(e) from substance_active e where nom = 'abiratérone')
 );
 
 
