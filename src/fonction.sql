@@ -206,10 +206,23 @@ begin
 end;
 /
 
+-- 6. une méthode qui détermine pour un médicament la liste des efets indésirables
+--    probables (déduits des hiérarchies de substances actives)..
 -- 7. afin de contrôler les prescriptions, on doit pouvoir déterminer s’il y a un
 --    ensemble de médicaments qui ne sont prescrits que par des médecins qui ont
 --    travaillé à leur développement.
 
+create or replace procedure ei_probable_par_medicament
+  (medic_nom in medicament.nom%type, ret out sys_refcursor)
+is
+begin
+  open ret for 
+  select distinct deref(es.effet_indesirable).description
+  from effet_i_substance_a es, effet_indesirable ei
+  start with es.substance_active = (select substance_active from medicament where nom = medic_nom)
+    connect by prior es.effet_indesirable = ei.effet_indesirable;
+end;
+/
 create or replace procedure a_medecin_verreux
   (ret out sys_refcursor)
 is
@@ -225,6 +238,23 @@ begin
       );
 end;
 /
+
+declare 
+  ret sys_refcursor;
+  line effet_indesirable.description%type;
+begin
+  ei_probable_par_medicament('doliprane', ret);
+  loop
+    fetch ret into line;
+    exit when ret%notfound;
+    dbms_output.put_line(line);
+  end loop;
+  
+  close ret;
+end;
+/
+
+
 
 
 declare 
