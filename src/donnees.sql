@@ -210,3 +210,5 @@ insert into substance_active_traitement values (
   (select ref(s) from substance_active s where nom = 'paracétamol'),
   (select ref(t) from traitement t where deref(maladie).nom = 'Grippe')
 );
+
+

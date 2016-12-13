@@ -91,7 +91,8 @@ create table medecin_developpement (
 
 create type consultation_type as object (
   dateT date,
-  medecin ref medecin_type
+  medecin ref medecin_type,
+  patient ref patient_type
 );
 /
 create table consultation of consultation_type;
@@ -129,8 +130,7 @@ create table symptome_consultation (
 create type prescription_type as object(
   debut date,
   consultation ref consultation_type,
-  medicament ref medicament_type,
-  patient ref patient_type
+  medicament ref medicament_type
 );
 /
 create table prescription of prescription_type;
