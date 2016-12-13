@@ -75,7 +75,7 @@ execute prescrire('Lorem', 'Ipsum', 'Peste', 'Roy', 'Amedee', '10-10-10', 'dolip
 
 -- 2. une méthode donnant les traitements en cours d’un patient.
 create or replace procedure traitement_du_patient
-  (nom in patient.nom%type, prenom in patient.prenom%type, ret out sys_refcursor)
+  (nom_patient in patient.nom%type, prenom_patient in patient.prenom%type, ret out sys_refcursor)
 is
 begin
   open ret for 
@@ -83,8 +83,15 @@ begin
   from traitement_prescription
   where current_date < deref(prescription).debut + deref(traitement).duree
   and prescription = (
-    select ref(pr) from prescription pr where consultation = (select ref(con) from consultation con 
-         where patient = (select ref(pa) from patient pa where pa.nom = nom and pa.prenom = prenom)));
+    select ref(pr) from prescription pr where consultation = (
+      select ref(con) from consultation con 
+      where patient = (
+        select ref(pa) from patient pa 
+        where pa.nom = nom_patient
+        and pa.prenom = prenom_patient
+      )
+    )
+  );
 end;
 /
 
@@ -110,12 +117,11 @@ create or replace procedure ei_par_medicament
   (medic_nom in medicament.nom%type, ret out sys_refcursor)
 is
 begin
-  dbms_output.put_line(medic_nom);
   open ret for 
-  select deref(es.effet_indesirable).description 
+  select deref(es.effet_indesirable).description
   from effet_i_substance_a es
   where es.substance_active = (
-    select substance_active from medicament where nom = 'doliprane'
+    select substance_active from medicament where nom = medic_nom
   );
 end;
 /
@@ -123,7 +129,6 @@ declare
   ret sys_refcursor;
   line effet_indesirable.description%type;
 begin
-  dbms_output.put_line('coucou');
   ei_par_medicament('doliprane', ret);
   loop
     fetch ret into line;
