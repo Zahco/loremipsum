@@ -18,14 +18,16 @@ create table carateristique_patient (
 );
 
 create type effet_indesirable_type as object (
-  description varchar(1024)
+  description varchar(1024),
+  effet_indesirable ref effet_indesirable_type
 );
 /
 create table effet_indesirable of effet_indesirable_type;
 
 create type substance_active_type as object (
   nom varchar(128),
-  description varchar(1024)
+  description varchar(1024),
+  substance_active ref substance_active_type
 );
 /
 create table substance_active of substance_active_type;
@@ -51,7 +53,8 @@ create table interaction of interaction_type;
 
 create type maladie_type as object (
   nom varchar(128),
-  description varchar(1024)
+  description varchar(1024),
+  maladie ref maladie_type
 );
 /
 create table maladie of maladie_type;
