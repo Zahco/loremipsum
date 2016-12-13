@@ -140,6 +140,7 @@ begin
 end;
 /
 
+<<<<<<< Updated upstream
 
 -- 4. Une méthode donnant la liste des medicament provocant des interections.
 
@@ -174,3 +175,5 @@ begin
 end;
 /
 
+=======
+>>>>>>> Stashed changes
