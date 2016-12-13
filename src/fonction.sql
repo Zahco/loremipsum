@@ -79,13 +79,13 @@ create or replace procedure traitement_du_patient
 is
 begin
   open ret for 
-  select deref(deref(traitement).maladie)
-  from traitement_prescription
-  where current_date < deref(prescription).debut + deref(traitement).duree
-  and prescription = (
-    select ref(pr) from prescription pr where consultation = (
+  select deref(deref(tp.traitement).maladie)
+  from traitement_prescription tp
+  where /*current_date < deref(tp.prescription).debut + deref(tp.traitement).duree
+  and*/ tp.prescription = (
+    select ref(pr) from prescription pr where pr.consultation = (
       select ref(con) from consultation con 
-      where patient = (
+      where con.patient = (
         select ref(pa) from patient pa 
         where pa.nom = nom_patient
         and pa.prenom = prenom_patient
@@ -99,7 +99,7 @@ declare
   ret sys_refcursor;
   line maladie%rowtype;
 begin
-  traitement_du_patient('Dupont', 'Pierre', ret);
+  traitement_du_patient('Lorem', 'Ipsum', ret);
   loop
     fetch ret into line;
     exit when ret%notfound;
