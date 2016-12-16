@@ -123,8 +123,8 @@ create type symptome_type as object (
 create table symptome of symptome_type;
 
 create table symptome_consultation (
-  consultation ref consultation_type,
-  symptome ref symptome_type
+  symptome ref symptome_type,
+  consultation ref consultation_type
 );
 
 create type prescription_type as object(

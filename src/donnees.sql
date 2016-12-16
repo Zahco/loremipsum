@@ -199,6 +199,10 @@ insert into substance_active_traitement values (
   (select ref(t) from traitement t where deref(maladie).nom = 'Peste')
 );
 insert into substance_active_traitement values (
+  (select ref(s) from substance_active s where nom = 'acide acetylsalicylique'),
+  (select ref(t) from traitement t where deref(maladie).nom = 'Peste')
+);
+insert into substance_active_traitement values (
   (select ref(s) from substance_active s where nom = 'abiratérone'),
   (select ref(t) from traitement t where deref(maladie).nom = 'Pou du pubis')
 );
@@ -215,3 +219,15 @@ insert into medecin_developpement values (
   (select ref(m) from medecin m where nom = 'Sourissette'),
   (select ref(d) from developpement d where deref(d.medicament).nom = 'doliprane')
 );
+
+insert into symptome values (
+    'Bubons',
+    (select ref(mal) from maladie mal where nom = 'Peste')
+);
+
+insert into symptome values (
+    'Fièvre',
+    (select ref(mal) from maladie mal where nom = 'Peste')
+);
+
+
