@@ -70,7 +70,7 @@ end;
 /
 
 
-execute prescrire('Lorem', 'Ipsum', 'Peste', 'Roy', 'Amedee', '10-10-10', 'doliprane');
+execute prescrire('Lorem', 'Ipsum', 'Peste', 'Sourissette', 'Frederique', '10-10-10', 'doliprane');
 
 
 -- 2. une méthode donnant les traitements en cours d’un patient.
@@ -245,14 +245,15 @@ create or replace procedure a_medecin_verreux
 is
 begin
   open ret for 
-    select med.nom from medicament med
-    where (
-        select distinct deref(pr.consultation).medecin from prescription pr
-        where deref(pr.medicament).nom = med.nom
-      ) = any (
+    select deref(pr.medicament).nom from prescription pr
+    where not exists (
+      select deref(pr.consultation).medecin from prescription pr
+      where deref(pr.medicament).nom = deref(pr.medicament).nom
+      and deref(pr.consultation).medecin not in (
         select md.medecin from medecin_developpement md
-        where deref(deref(md.developpement).medicament).nom = med.nom
-      );
+        where deref(deref(md.developpement).medicament).nom = deref(pr.medicament).nom
+      )
+    );
 end;
 /
 
@@ -270,3 +271,89 @@ begin
   close ret;
 end;
 /
+
+-- 8. on doit pouvoir déterminer s’il y a des médicaments qui ne sont prescrits que
+--    par des médecins ayant travaillé dans les laboratoires les fabriquant.
+
+create or replace procedure a_medecin_corrompu
+  (ret out sys_refcursor)
+is
+begin
+  open ret for 
+    select deref(pr.medicament).nom from prescription pr
+    where not exists (
+      select deref(pr.consultation).medecin from prescription pr
+      where deref(pr.medicament).nom = deref(pr.medicament).nom
+      and deref(pr.consultation).medecin not in (
+        select ref(med) from medecin med
+        where med.laboratoire = (
+          select dev.laboratoire from developpement dev
+          where dev.medicament = pr.medicament
+        )
+      )
+    );
+end;
+/
+
+declare 
+  ret sys_refcursor;
+  line medicament.nom%type;
+begin
+  a_medecin_corrompu(ret);
+  loop
+    fetch ret into line;
+    exit when ret%notfound;
+    dbms_output.put_line(line);
+  end loop;
+  
+  close ret;
+end;
+/
+
+-- 9. on doit pouvoir identifier la/les maladie(s) probable(s) et aider à la prescrip-
+--    tion en fonction d’observations (symptômes) et des caractéristiques du patient
+--    (vous pourrez trier les traitements proposés par nombre d’effets indésirables
+--    par exemple).
+
+
+
+-- 10. une fonction permettant d’indiquer à un médecin prescrivant si le traitement
+--     envisagé, risque d’interagir avec un traitement ’en cours’ et proposer le cas
+--     échéant un autre traitement.
+-- ~ create or replace procedure est_prescrivable
+  -- ~ (patient_nom in patient.nom%type, 
+  -- ~ patient_prenom in patient.prenom%type,
+  -- ~ _traitement in traitement%rowtype,
+  -- ~ ret out sys_refcursor)
+-- ~ is
+-- ~ begin
+  -- ~ open ret for 
+    -- ~ select deref(pr.medicament).nom from prescription pr
+    -- ~ where not exists (
+      -- ~ select deref(pr.consultation).medecin from prescription pr
+      -- ~ where deref(pr.medicament).nom = deref(pr.medicament).nom
+      -- ~ and deref(pr.consultation).medecin not in (
+        -- ~ select ref(med) from medecin med
+        -- ~ where med.laboratoire = (
+          -- ~ select dev.laboratoire from developpement dev
+          -- ~ where dev.medicament = pr.medicament
+        -- ~ )
+      -- ~ )
+    -- ~ );
+-- ~ end;
+-- ~ /
+
+-- ~ declare 
+  -- ~ ret sys_refcursor;
+  -- ~ line medicament.nom%type;
+-- ~ begin
+  -- ~ a_medecin_corrompu(ret);
+  -- ~ loop
+    -- ~ fetch ret into line;
+    -- ~ exit when ret%notfound;
+    -- ~ dbms_output.put_line(line);
+  -- ~ end loop;
+  
+  -- ~ close ret;
+-- ~ end;
+-- ~ /
