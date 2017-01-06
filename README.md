@@ -2,5 +2,5 @@
 
 ## Manuel d'utilisation
 
-Connectez vous à votre base de données.
-Lancez le script SQL: boot.sql
+* Connectez vous à votre base de données.
+* Lancez le script SQL: src/boot.sql
